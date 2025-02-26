@@ -17,7 +17,7 @@ bun install
 3. Generate database models and migrations on database
 > This step is only required if you are using a new database. Only postgres are allowed in this moment
 ```bash
-bun database:init
+bun database:dev
 ```
 
 ## Running
