@@ -1,8 +1,9 @@
+import type { ContentfulStatusCode } from "hono/utils/http-status";
 import type { ResponseWrapper } from "./ResponseWrapper"
 
 export interface IServiceResponse<T> {
   res: ResponseWrapper<T>;
-  code: number;
+  code: ContentfulStatusCode;
 }
 
 /**
