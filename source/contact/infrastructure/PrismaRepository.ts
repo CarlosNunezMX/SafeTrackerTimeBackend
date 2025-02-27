@@ -3,6 +3,7 @@ import Contact from "../domain/contact";
 import type IContactRepository from "../domain/IContactRepository";
 import type ContactDTO from "./ContactDTO";
 import ContactNotFoundError from "../domain/ContactNotFoundError";
+import InvalidContactError from "../domain/InvalidContactError";
 
 export default class ContactPrismaRepository implements IContactRepository {
   constructor(
@@ -105,10 +106,14 @@ export default class ContactPrismaRepository implements IContactRepository {
     return new Contact(newContact.id, newContact.name, newContact.phone, newContact.contactOwnerID);
   }
 
-  async exists(id: string): Promise<boolean> {
+  async exists(contact: Partial<Pick<Contact, "userID" | "phone" | "id">>): Promise<boolean> {
+    if (!contact.userID && !contact.phone)
+      throw new InvalidContactError("Se debe proveer un userID o un telefono.");
     const hasContact = await this.client.contact.findFirst({
       where: {
-        id
+        id: contact.id,
+        phone: contact.phone,
+        contactOwnerID: contact.userID
       }
     })
     return !!hasContact;

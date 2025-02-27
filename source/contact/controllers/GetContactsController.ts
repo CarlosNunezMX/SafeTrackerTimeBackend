@@ -15,12 +15,8 @@ export default class GetContactController {
   private route() {
     this.Router.get("/", this.jwtService.middleware, async c => {
       const { id } = c.get("jwtPayload")
-      try {
-        const contacts = await this.GetContactsService.getContacts(id);
-        return c.json(new this.responseWrapper(true, contacts));
-      } catch (error) {
-        return c.json(new this.responseWrapper(false, (error as Error).message), 500);
-      }
+      const contacts = await this.GetContactsService.service(id);
+      return c.json(contacts.res, contacts.code);
     })
   }
 }

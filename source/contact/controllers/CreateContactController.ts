@@ -42,7 +42,6 @@ export default class CreateContactController {
       , async c => {
         const dto = c.req.valid("json")
         const contacts = await this.createContactService.service(dto);
-        // @ts-ignore
         return c.json(contacts.res, contacts.code);
       })
   }

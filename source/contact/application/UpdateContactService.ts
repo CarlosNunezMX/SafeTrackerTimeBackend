@@ -18,7 +18,9 @@ export default class UpdateContactService implements IService<Contact, [Partial<
   public async service(args: [Partial<ContactDTO>, string]): Promise<IServiceResponse<Contact> | IServiceResponse<string>> {
     try {
       const [contact, contactID] = args;
-      const hasContact = this.contactRepo.exists(contactID);
+      const hasContact = this.contactRepo.exists({
+        id: contactID
+      });
       if (!hasContact)
         throw new ContactNotFoundError();
       let UpdatedContact = await this.contactRepo.updateContact(contact, contactID);

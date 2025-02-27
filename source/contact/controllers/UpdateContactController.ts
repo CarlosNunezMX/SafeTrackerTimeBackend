@@ -39,7 +39,6 @@ export default class UpdateContactController {
         const updatedContacts = await this.updateService.service([dto, dto.userID!]);
         return c.json(
           updatedContacts.res,
-          // @ts-ignore
           updatedContacts.code
         )
 

@@ -20,7 +20,8 @@ const createContactController = new CreateContactController(
 )
 
 const getContactService = new GetContactsService(
-  Constants.ContactsPrismaRepository
+  Constants.ContactsPrismaRepository,
+  ResponseWrapper
 );
 
 const getContactsController = new GetContactController(
