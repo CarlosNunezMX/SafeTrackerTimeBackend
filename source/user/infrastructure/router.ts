@@ -11,7 +11,8 @@ const UserRouter = new Hono();
 
 // services instances 
 const aboutMeService = new AboutMeService(
-  Constants.prismaRepository
+  Constants.prismaRepository,
+  ResponseWrapper
 )
 
 const modifySerivice = new UserUpdateService(
@@ -20,7 +21,7 @@ const modifySerivice = new UserUpdateService(
 );
 
 // controllers 
-const controller = new UserController(Constants.jwtService, aboutMeService, ResponseWrapper);
+const aboutMeController = new UserController(Constants.jwtService, aboutMeService);
 const updateUserController = new ModifyUserController(
   Constants.jwtService,
   ResponseWrapper,
@@ -29,7 +30,7 @@ const updateUserController = new ModifyUserController(
 )
 
 //Attach to main router 
-UserRouter.route("/", controller.Router);
+UserRouter.route("/", aboutMeController.Router);
 UserRouter.route("/", updateUserController.Router)
 export default UserRouter;
 

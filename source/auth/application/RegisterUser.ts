@@ -1,7 +1,7 @@
-import type IUserRepository from "../domain/IUserRepository";
-import User from "../domain/user.ts";
-import type PasswordHasher from "../infrastructure/PasswordHasher";
-import type UserDTO from "../infrastructure/UserDTO.ts";
+import User from "../../user/domain/user.ts";
+import type IUserRepository from "../../user/domain/IUserRepository";
+import type PasswordHasher from "../../user/infrastructure/PasswordHasher";
+import type UserDTO from "../../user/infrastructure/UserDTO.ts";
 
 export default class RegisterUser {
   constructor(

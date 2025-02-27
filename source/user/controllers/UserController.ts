@@ -9,26 +9,15 @@ export default class UserController {
   constructor(
     private jwtAuth: JwtAdapter,
     private aboutMeService: AboutMeService,
-    private responseWrapper: typeof ResponseWrapper
   ) {
     this.router();
   };
   private router() {
     this.Router.get("/", this.jwtAuth.middleware, async c => {
       const { id } = c.get("jwtPayload");
-      try {
-        const user = await this.aboutMeService.aboutMe(id);
-        return c.json(new this.responseWrapper(true, user));
-      } catch (error) {
-        if (error instanceof UserNotFoundError)
-          return c.json(
-            new this.responseWrapper(false, error.message),
-            404
-          )
-        return c.json(
-          new this.responseWrapper(false, (error as Error).message)
-        )
-      }
+      const user = await this.aboutMeService.service(id);
+      // @ts-ignore
+      return c.json(user.res, user.code);
 
     })
   }

@@ -1,11 +1,11 @@
 import { Hono } from "hono";
 import type JwtAdapter from "../../shared/infrastructure/JwtAdapter";
-import { validator } from "hono/validator";
-import UserDTO from "../infrastructure/UserDTO";
 import type { ResponseWrapper } from "../../shared/domain/ResponseWrapper";
 import type UpdateUserValidator from "../validators/UpdateUser";
 import type UserUpdateService from "../application/UpdateService";
-import UserNotFoundError from "../domain/UserNotFoundError";
+
+import UserDTO from "../infrastructure/UserDTO";
+import { validator } from "hono/validator";
 
 export default class ModifyUserController {
   public Router = new Hono();

@@ -71,7 +71,7 @@ export default class PostgreRepository implements IUserRepository {
       user.phone,
       user.email,
       user.password,
-      user.contacts.map(item => new Contact(item.id, item.name, item.phone, item.id))
+      user.contacts.map(item => new Contact(item.id, item.name, item.phone, item.contactOwnerID))
     )
   }
 
