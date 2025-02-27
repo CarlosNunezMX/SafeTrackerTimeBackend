@@ -15,10 +15,8 @@ export default class ValidateUserRegister {
     if (user.password!.length <= 8)
       throw new UserValidationError("El campo contraseña debe ser mayor a 8 caracteres");
 
-    if (!user.userName)
-      throw new UnknownError("Fallo al leer el UserDTO->userName");
 
-    if (!user.userName.firstName || !user.userName.lastName)
+    if (!user.firstName || !user.lastName)
       throw new UserValidationError("El o los campos del usuario estan vacios!");
 
     if (!user.phone || !PhoneValidator.validate(user.phone))

@@ -5,7 +5,6 @@ import RegisterController from "../controllers/RegisterController.ts";
 
 
 // Services
-import AuthService from "../application/AuthService.ts";
 import RegisterUser from "../application/RegisterUser.ts";
 import LoginUserService from "../application/LoginUser.ts";
 import Constants from "../../shared/infrastructure/Constants.ts";
@@ -16,7 +15,7 @@ import LoginValidator from "../validators/LoginValidator.ts";
 
 // instances
 const LoginService = new LoginUserService(Constants.prismaRepository, Constants.passwordHasher, Constants.jwtService, ResponseWrapper);
-const RegisterService = new RegisterUser(Constants.prismaRepository, Constants.passwordHasher);
+const RegisterService = new RegisterUser(Constants.prismaRepository, Constants.passwordHasher, ResponseWrapper, Constants.jwtService);
 
 const AuthRouter = new Hono();
 
@@ -24,7 +23,7 @@ const AuthRouter = new Hono();
 const registerController = new RegisterController(
   ValidateUserRegister,
   ResponseWrapper,
-  new AuthService(RegisterService, LoginService, Constants.jwtService)
+  RegisterService
 );
 
 const loginController = new LoginController(

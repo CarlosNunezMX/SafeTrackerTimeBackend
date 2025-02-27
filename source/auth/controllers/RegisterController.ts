@@ -6,14 +6,13 @@ import UserDTO from "../../user/infrastructure/UserDTO";
 import UserValidationError from "../../user/validators/UserValidationError";
 
 import type ValidateUserRegister from "../validators/ValidateUserRegister";
-
-import type AuthService from "../application/AuthService";
 import UnknownError from "../../shared/domain/UnknownError";
+import type RegisterUser from "../application/RegisterUser";
 export default class RegisterController {
   constructor(
     private validationUserRegisterService: typeof ValidateUserRegister,
     private responseWrapper: typeof ResponseWrapper,
-    private authService: AuthService
+    private registerService: RegisterUser
   ) {
     this.router();
   };
@@ -32,7 +31,6 @@ export default class RegisterController {
           this.validationUserRegisterService.validate(dto)
           return { dto: dto };
         } catch (err) {
-          console.log(err);
           if (err instanceof UserValidationError) {
             return c.json(
               new this.responseWrapper<string>(false, err.message),
@@ -50,15 +48,8 @@ export default class RegisterController {
       })
       , async (c) => {
         const { dto } = c.req.valid("json")!;
-        try {
-          return c.json(await this.authService.register(dto));
-        } catch (error) {
-          console.log(error);
-          return c.json(
-            new this.responseWrapper(false, (error as Error).message),
-            500
-          )
-        }
+        const token = await this.registerService.service(dto);
+        return c.json(token.res, token.code)
       })
   }
 }
