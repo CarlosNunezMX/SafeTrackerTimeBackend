@@ -5,6 +5,7 @@ import UserName from "../domain/userName";
 import UserNotFoundError from "../domain/UserNotFoundError";
 import Contact from "../../contact/domain/contact";
 import UserDTO from "./UserDTO";
+import UnknownError from "../../shared/domain/UnknownError";
 
 export default class PostgreRepository implements IUserRepository {
   constructor(
@@ -119,5 +120,18 @@ export default class PostgreRepository implements IUserRepository {
       newUser.email,
       newUser.password
     )
+  }
+
+
+  public async exists(user: Partial<Pick<UserDTO, "email" | "phone">>): Promise<boolean> {
+    if (!user.phone && !user.email)
+      throw new UnknownError("Debe de colocar algun campo a buscar.");
+    const hasUser = await this.client.user.findFirst({
+      where: {
+        email: user.email,
+        phone: user.phone
+      }
+    });
+    return !!hasUser;
   }
 };
