@@ -29,20 +29,22 @@ export default class PrismaLocationRepository implements ILocationRepository {
   }
 
   public async updateLocation(location: LocationDTO, userID: string): Promise<Location> {
-    const hasLocation = await this.getLocation(userID);
-    if (!hasLocation)
+    try {
+      const newLocation = await this.client.location.update({
+        where: {
+          userID
+        },
+        data: {
+          date: new Date(Date.now()),
+          x: location.x,
+          y: location.y
+        }
+      })
+      return new Location(newLocation.id, newLocation.x.toNumber(), newLocation.y.toNumber(), newLocation.date, newLocation.userID);
+
+    } catch (err) {
       return await this.createLocation(location, userID);
-    const newLocation = await this.client.location.update({
-      where: {
-        userID
-      },
-      data: {
-        date: new Date(Date.now()),
-        x: location.x,
-        y: location.y
-      }
-    })
-    return new Location(newLocation.id, newLocation.x.toNumber(), newLocation.y.toNumber(), newLocation.date, newLocation.userID);
+    };
   }
 
   private async createLocation(location: LocationDTO, userID: string): Promise<Location> {
