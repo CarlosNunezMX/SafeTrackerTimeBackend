@@ -4,6 +4,7 @@ import UserValidationError from "./UserValidationError";
 export default class UsernameValidator {
   private static SymbolsRegex = new RegExp(/^[\w'\-,.][^0-9_!¡?÷?¿/\\+=@#$%ˆ&*(){}|~<>;:[\]]{2,}$/g);
   public static validate(user: Partial<UserName>) {
+    console.log(user)
     if (user.firstName && user.firstName.length < 4)
       throw new UserValidationError("El campo nombre es muy corto");
     if (user.lastName && user.lastName.length < 3)
