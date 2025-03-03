@@ -2,9 +2,10 @@ import type UserName from "../domain/userName";
 import UserValidationError from "./UserValidationError";
 
 export default class UsernameValidator {
-  private static SymbolsRegex = new RegExp(/^[\w'\-,.][^0-9_!¡?÷?¿/\\+=@#$%ˆ&*(){}|~<>;:[\]]{2,}$/g);
+  private static SymbolsRegex = new RegExp(/^[\p{Letter}\s\-.']+$/u);
   public static validate(user: Partial<UserName>) {
-    console.log(user)
+    if (!user.firstName && !user.lastName)
+      throw new UserValidationError("No hay un campo a validar");
     if (user.firstName && user.firstName.length < 4)
       throw new UserValidationError("El campo nombre es muy corto");
     if (user.lastName && user.lastName.length < 3)
