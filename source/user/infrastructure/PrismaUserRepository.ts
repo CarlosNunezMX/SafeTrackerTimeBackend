@@ -139,9 +139,11 @@ export default class PostgreRepository implements IUserRepository {
       throw new UnknownError("Debe de colocar algun campo a buscar.");
     const hasUser = await this.client.user.findFirst({
       where: {
-        email: user.email,
-        phone: user.phone,
-        id: user.id
+        OR: [
+          { email: user.email },
+          { phone: user.phone },
+          { id: user.id }
+        ]
       }
     });
     return !!hasUser;

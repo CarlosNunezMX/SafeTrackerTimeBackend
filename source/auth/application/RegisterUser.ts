@@ -28,6 +28,8 @@ export default class RegisterUser implements IService<string, UserDTO> {
       if (hasUser)
         throw new UserExistsError();
 
+      args = this.passwordHashService.hash(args)
+
       const newUser = await this.repository.createUser(args);
       const token = await this.jwtService.encode(newUser);
       return {
@@ -35,6 +37,11 @@ export default class RegisterUser implements IService<string, UserDTO> {
         res: new this.responseWrapper(true, token)
       }
     } catch (error) {
+      if (error instanceof UserExistsError)
+        return {
+          code: 400,
+          res: new this.responseWrapper(false, error.message)
+        }
       if (error instanceof UnknownError)
         return {
           code: 500,
