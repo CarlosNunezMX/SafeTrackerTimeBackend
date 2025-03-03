@@ -10,12 +10,17 @@ import LoginUserService from "../application/LoginUser.ts";
 import Constants from "../../shared/infrastructure/Constants.ts";
 import LoginController from "../controllers/LoginController.ts";
 import LoginValidator from "../validators/LoginValidator.ts";
+import EmailSendController from "../controllers/EmailSend.ts";
+import SendEmailService from "../application/sendEmail.ts";
+import EmailDetails from "../domain/EmailDetails.ts";
+import VerificationController from "../controllers/VerificationController.tsx";
+import VerificationService from "../application/VerificationService.ts";
 
 
 
 // instances
-const LoginService = new LoginUserService(Constants.prismaRepository, Constants.passwordHasher, Constants.jwtService, ResponseWrapper);
-const RegisterService = new RegisterUser(Constants.prismaRepository, Constants.passwordHasher, ResponseWrapper, Constants.jwtService);
+const LoginService = new LoginUserService(Constants.UserRepository, Constants.passwordHasher, Constants.jwtService, ResponseWrapper);
+const RegisterService = new RegisterUser(Constants.UserRepository, Constants.passwordHasher, ResponseWrapper, Constants.jwtService);
 
 const AuthRouter = new Hono();
 
@@ -31,9 +36,28 @@ const loginController = new LoginController(
   LoginValidator,
   ResponseWrapper
 )
-
+const sendEmailService = new SendEmailService(
+  Constants.jwtService,
+  Constants.UserRepository,
+  ResponseWrapper,
+  Constants.emailClient,
+  EmailDetails
+)
+const emailController = new EmailSendController(
+  sendEmailService,
+  Constants.jwtService
+)
+const verifyService = new VerificationService(
+  Constants.jwtService,
+  ResponseWrapper,
+  Constants.UserRepository,
+);
+const verifyController = new VerificationController(
+  verifyService
+);
 
 AuthRouter.route("/register", registerController.Router);
 AuthRouter.route("/login", loginController.Router);
-
+AuthRouter.route("/verify", emailController.Router)
+AuthRouter.route("/verify", verifyController.Router)
 export default AuthRouter;

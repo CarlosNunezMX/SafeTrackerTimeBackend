@@ -25,13 +25,15 @@ export default class PostgreRepository implements IUserRepository {
 
     return new User(
       createdUser.id,
+      createdUser.createdAt,
       new UserName(
         createdUser.firstName,
         createdUser.lastName
       ),
       createdUser.phone,
       createdUser.email,
-      createdUser.password
+      createdUser.password,
+      createdUser.verified
     )
   }
 
@@ -48,10 +50,12 @@ export default class PostgreRepository implements IUserRepository {
 
     return new User(
       user.id,
+      user.createdAt,
       new UserName(user.firstName, user.lastName),
       user.phone,
       user.email,
       user.password,
+      user.verified,
       user.contacts.map(item => new Contact(item.id, item.name, item.phone, item.id))
     )
   }
@@ -68,10 +72,12 @@ export default class PostgreRepository implements IUserRepository {
 
     return new User(
       user.id,
+      user.createdAt,
       new UserName(user.firstName, user.lastName),
       user.phone,
       user.email,
       user.password,
+      user.verified,
       user.contacts.map(item => new Contact(item.id, item.name, item.phone, item.contactOwnerID))
     )
   }
@@ -85,10 +91,12 @@ export default class PostgreRepository implements IUserRepository {
     })
     return users.map(user => new User(
       user.id,
+      user.createdAt,
       new UserName(user.firstName, user.lastName),
       user.phone,
       user.email,
       user.password,
+      user.verified,
       user.contacts.map(contact => new Contact(contact.id, contact.name, contact.phone, contact.contactOwnerID))
     ))
   }
@@ -109,27 +117,31 @@ export default class PostgreRepository implements IUserRepository {
         lastName: user.lastName,
         password: user.password,
         email: user.email,
-        phone: user.phone
+        phone: user.phone,
+        verified: user.verifed
       }
     })
 
     return new User(
       newUser.id,
+      newUser.createdAt,
       new UserName(newUser.firstName, newUser.lastName),
       newUser.phone,
       newUser.email,
-      newUser.password
+      newUser.password,
+      newUser.verified
     )
   }
 
 
-  public async exists(user: Partial<Pick<UserDTO, "email" | "phone">>): Promise<boolean> {
-    if (!user.phone && !user.email)
+  public async exists(user: Partial<Pick<User, "email" | "phone" | "id">>): Promise<boolean> {
+    if (!user.phone && !user.email && !user.id)
       throw new UnknownError("Debe de colocar algun campo a buscar.");
     const hasUser = await this.client.user.findFirst({
       where: {
         email: user.email,
-        phone: user.phone
+        phone: user.phone,
+        id: user.id
       }
     });
     return !!hasUser;

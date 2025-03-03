@@ -1,16 +1,27 @@
 import PasswordHasher from "../../user/infrastructure/PasswordHasher";
-import PostgreRepository from "../../user/infrastructure/PostgreRepository";
+import PrismaUserRepository from "../../user/infrastructure/PrismaUserRepository";
 import JwtAdapter from "./JwtAdapter";
 import client from "./PrismaClient";
 import ContactsPrismaRepository from "../../contact/infrastructure/PrismaRepository.ts";
 import PrismaLocationRepository from "../../location/infrastructure/PrismaLocationRepository.ts";
+import { Env } from "../../server/infrastructure/envCheck.ts";
+import EmailClient from "../../auth/infrastructure/EmailClient.ts";
+import MailBuilder from "../../auth/infrastructure/MailBuilder.ts";
+
 export default class Constants {
-  private static jwtToken = process.env["TOKEN_SECRET"]!;
+  private static jwtToken = Env.variables.TOKEN_SECRET;
+  public static Env = Env.variables;
   public static jwtService = new JwtAdapter(this.jwtToken);
-  public static prismaRepository = new PostgreRepository(client);
+  public static UserRepository = new PrismaUserRepository(client);
   public static passwordHasher = new PasswordHasher();
-  public static ContactsPrismaRepository = new ContactsPrismaRepository(client);
+  public static ContactsRepository = new ContactsPrismaRepository(client);
   public static LocationRepository = new PrismaLocationRepository(client);
+  public static emailClient = new EmailClient(
+    MailBuilder,
+    this.Env.RESEND_API_KEY,
+    `noreply@${this.Env.RESEND_DOMAIN}`,
+    this.Env.HOST
+  )
 }
 
 

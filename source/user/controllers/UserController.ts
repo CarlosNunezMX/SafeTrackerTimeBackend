@@ -1,8 +1,6 @@
 import { Hono } from "hono/tiny";
 import JwtAdapter from "../../shared/infrastructure/JwtAdapter";
 import type AboutMeService from "../application/aboutMeService";
-import type { ResponseWrapper } from "../../shared/domain/ResponseWrapper";
-import UserNotFoundError from "../domain/UserNotFoundError";
 
 export default class UserController {
   public Router = new Hono();

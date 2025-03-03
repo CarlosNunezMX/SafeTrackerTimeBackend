@@ -23,6 +23,8 @@ interface AboutMeResponse{
     },
     phone: string,
     email: string,
+    verified: boolean,
+    createdAt: number,
     password: "" // always be empty,
     contact: Contact[]
   }

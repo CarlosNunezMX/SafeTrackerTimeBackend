@@ -11,12 +11,12 @@ const UserRouter = new Hono();
 
 // services instances 
 const aboutMeService = new AboutMeService(
-  Constants.prismaRepository,
+  Constants.UserRepository,
   ResponseWrapper
 )
 
 const modifySerivice = new UserUpdateService(
-  Constants.prismaRepository,
+  Constants.UserRepository,
   ResponseWrapper
 );
 
