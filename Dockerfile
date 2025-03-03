@@ -6,4 +6,4 @@ RUN bun x prisma generate
 ARG PORT
 EXPOSE ${PORT:-3000}
  
-CMD ["bun", "server.ts"]
+CMD ["bun", "source/server/infrastructure/app.ts"]
