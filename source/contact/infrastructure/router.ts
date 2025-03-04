@@ -10,7 +10,9 @@ import UpdateContactController from "../controllers/UpdateContactController.ts";
 import UpdateValidator from "./UpdateValidator.ts";
 import UpdateContactService from "../application/UpdateContactService.ts";
 
-const createContactService = new CreateContactService(Constants.ContactsPrismaRepository, ResponseWrapper);
+const createContactService = new CreateContactService(
+  Constants.ContactsRepository,
+  ResponseWrapper);
 
 const createContactController = new CreateContactController(
   Constants.jwtService,
@@ -20,18 +22,17 @@ const createContactController = new CreateContactController(
 )
 
 const getContactService = new GetContactsService(
-  Constants.ContactsPrismaRepository,
+  Constants.ContactsRepository,
   ResponseWrapper
 );
 
 const getContactsController = new GetContactController(
   Constants.jwtService,
-  ResponseWrapper,
   getContactService
 );
 
 const updateService = new UpdateContactService(
-  Constants.ContactsPrismaRepository,
+  Constants.ContactsRepository,
   ResponseWrapper
 );
 

@@ -7,7 +7,6 @@ export default class GetContactController {
   public Router = new Hono();
   constructor(
     private jwtService: JwtAdapter,
-    private responseWrapper: typeof ResponseWrapper,
     private GetContactsService: GetContactsService
   ) {
     this.route();
@@ -15,6 +14,7 @@ export default class GetContactController {
   private route() {
     this.Router.get("/", this.jwtService.middleware, async c => {
       const { id } = c.get("jwtPayload")
+      console.log(id)
       const contacts = await this.GetContactsService.service(id);
       return c.json(contacts.res, contacts.code);
     })

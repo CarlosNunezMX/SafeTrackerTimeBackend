@@ -75,7 +75,12 @@ export default class ContactPrismaRepository implements IContactRepository {
         contactOwnerID: id
       }
     })
-    return contacts.map(contact => new Contact(contact.id, contact.name, contact.phone, contact.contactOwnerID));
+    return contacts.map(contact => new Contact(
+      contact.id,
+      contact.name,
+      contact.phone,
+      contact.contactOwnerID
+    ));
   }
 
   async findContactByIDS(phone: string, userID: string): Promise<Contact> {
