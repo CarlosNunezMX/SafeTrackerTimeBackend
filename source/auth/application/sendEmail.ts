@@ -30,9 +30,18 @@ export default class SendEmailService implements IService<string, string> {
       const user = await this.userRepo.getUserDetails(args);
       if (user.verified)
         throw new UserValidationError("El email ya ha sido verificado!");
+      if (user.hasEmailSent)
+        throw new UserValidationError("El email ya se ha enviado!");
+      // Send email
       const token = await this.jwtService.encode(user, { invalid_at: Date.now() + validationTime })
       const emailDetails = new this.deteailsBuilder(user.email, token, "Verifica tu email.", user.userName.firstName);
       await this.emailSender.sendEmail(emailDetails);
+
+      // Edit in database
+      await this.userRepo.updateUser({
+        hasEmailSent: true
+      }, args);
+      // All ok!
       return {
         code: 200,
         res: new this.responseWrapper(true, "Email enviado correctamente!")

@@ -33,7 +33,8 @@ export default class PostgreRepository implements IUserRepository {
       createdUser.phone,
       createdUser.email,
       createdUser.password,
-      createdUser.verified
+      createdUser.verified,
+      createdUser.hasEmailSent
     )
   }
 
@@ -56,6 +57,7 @@ export default class PostgreRepository implements IUserRepository {
       user.email,
       user.password,
       user.verified,
+      user.hasEmailSent,
       user.contacts.map(item => new Contact(item.id, item.name, item.phone, item.id))
     )
   }
@@ -78,6 +80,7 @@ export default class PostgreRepository implements IUserRepository {
       user.email,
       user.password,
       user.verified,
+      user.hasEmailSent,
       user.contacts.map(item => new Contact(item.id, item.name, item.phone, item.contactOwnerID))
     )
   }
@@ -97,6 +100,7 @@ export default class PostgreRepository implements IUserRepository {
       user.email,
       user.password,
       user.verified,
+      user.hasEmailSent,
       user.contacts.map(contact => new Contact(contact.id, contact.name, contact.phone, contact.contactOwnerID))
     ))
   }
@@ -129,7 +133,8 @@ export default class PostgreRepository implements IUserRepository {
       newUser.phone,
       newUser.email,
       newUser.password,
-      newUser.verified
+      newUser.verified,
+      newUser.hasEmailSent
     )
   }
 

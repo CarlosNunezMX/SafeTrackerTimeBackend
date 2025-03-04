@@ -5,6 +5,7 @@ export default class UserDTO {
     public firstName: string,
     public lastName: string,
     public password: string,
-    public verifed: boolean = false
+    public verifed: boolean = false,
+    public hasEmailSent: boolean = false
   ) { };
 };

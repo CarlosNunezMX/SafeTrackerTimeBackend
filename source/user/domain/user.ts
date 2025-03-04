@@ -10,6 +10,7 @@ export default class User {
     public email: string,
     public password: string,
     public verified: boolean,
+    public hasEmailSent: boolean,
     public contacts: Contact[] = []
   ) { };
 }

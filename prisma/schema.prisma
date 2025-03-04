@@ -8,16 +8,17 @@ datasource db {
 }
 
 model User {
-  id        String    @id @default(uuid())
-  createdAt DateTime  @default(now())
-  lastName  String
-  firstName String
-  password  String
-  phone     String    @unique
-  email     String    @unique
-  verified  Boolean   @default(false)
-  contacts  Contact[]
-  Location  Location?
+  id           String    @id @default(uuid())
+  createdAt    DateTime  @default(now())
+  lastName     String
+  firstName    String
+  password     String
+  phone        String    @unique
+  email        String    @unique
+  hasEmailSent Boolean   @default(false)
+  verified     Boolean   @default(false)
+  contacts     Contact[]
+  Location     Location?
 }
 
 model Location {
