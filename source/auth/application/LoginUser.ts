@@ -48,6 +48,11 @@ export default class LoginUserService implements IService<string, [string, strin
           res: new this.responseWrapper(false, error.message),
           code: 404
         }
+      if (error instanceof UserValidationError)
+        return {
+          res: new this.responseWrapper(false, error.message),
+          code: 400
+        }
       console.error(error);
       return {
         code: 500,
