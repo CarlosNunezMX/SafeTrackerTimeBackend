@@ -17,6 +17,7 @@
   },
   "scripts": {
     "start": "bun source/server/infrastructure/app.ts",
-    "database:dev": "prisma generate dev"
+    "database:dev": "prisma generate dev",
+    "database:prod": "prisma generate"
   }
 }

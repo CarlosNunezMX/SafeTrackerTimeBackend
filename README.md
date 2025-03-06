@@ -9,7 +9,9 @@
 1. Copy the `.env.example` file to `.env`, fill the variables
   * `DATABASE_URL`: The connection string 
   * `TOKEN_SECRET`: The key for jwt encryption
-  * `PORT`: [Optional] The server port
+  * `RESEND_API_KEY`: Resend email service JWT key
+  * `RESEND_DOMAIN`: Domain for sending emails, this has to be linked to API KEY.
+  * `PORT`: _[Optional]_ The server port
 2. Install deps:
 ```bash
 bun install
@@ -19,6 +21,7 @@ bun install
 ```bash
 bun database:dev
 ```
+> On production env you need to use `database:prod`
 
 ## Running
 To start the server you need to use the following command:
