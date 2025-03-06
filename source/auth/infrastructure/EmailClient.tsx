@@ -2,7 +2,6 @@ import { Resend } from "resend";
 import type IEmailClient from "../domain/EmailClient";
 import type EmailDetails from "../domain/EmailDetails";
 import type MailBuilder from "../domain/MailBuilder";
-import {html} from "hono/html"
 import UnknownError from "../../shared/domain/UnknownError";
 export default class EmailClient implements IEmailClient {
   private transporter: Resend;
@@ -21,10 +20,10 @@ export default class EmailClient implements IEmailClient {
       from: `SafeTracker <${this.apiEmail}>`,
       subject: to.subject,
       // TODO: Make it not dependent of mailbuilder
-      html: (await <Element/>).toString()
+      html: (await <Element />).toString()
     })
-    if(emailID.error){
-      console.error(emailID.error)      
+    if (emailID.error) {
+      console.error(emailID.error)
       throw new UnknownError("El email no se pudo enviar");
     }
   };

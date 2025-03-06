@@ -6,6 +6,7 @@ import UserValidationError from "../../user/validators/UserValidationError";
 import type IUserRepository from "../../user/domain/IUserRepository";
 import type User from "../../user/domain/user";
 import CatchResponseError from "../../shared/infrastructure/catchError";
+
 interface expectedToken {
   id: string,
   date: number,
