@@ -7,6 +7,7 @@ There is a little index with the most important endpoints
 * [Users](./user.md)
 * [Contacts](./contacts.md)
 * [Auth](./auth.md)
+* [Location](./location.md)
 
 
 ## Response details
