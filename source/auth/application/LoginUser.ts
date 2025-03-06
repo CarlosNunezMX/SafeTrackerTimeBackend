@@ -19,7 +19,6 @@ export default class LoginUserService implements IService<string, [string, strin
     const now = Date.now();
     const dif = now - date.getTime();
     const fiveDays = 1000 * 60 * 60 * 24 * 5;
-    console.log(date.getTime(), now, dif, fiveDays);
 
     return dif < fiveDays;
   }
