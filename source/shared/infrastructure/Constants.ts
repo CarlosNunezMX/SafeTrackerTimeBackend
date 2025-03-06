@@ -17,7 +17,7 @@ export default class Constants {
   public static LocationRepository = new PrismaLocationRepository(client);
   public static emailClient = new EmailClient(
     Env.variables.RESEND_API_KEY,
-    Env.variables.RESEND_DOMAIN
+    `noreply@${Env.variables.RESEND_DOMAIN}`
   );
 }
 
