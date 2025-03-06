@@ -4,7 +4,6 @@ import type { ResponseWrapper } from "../../shared/domain/ResponseWrapper";
 import type JwtAdapter from "../../shared/infrastructure/JwtAdapter";
 import UserValidationError from "../../user/validators/UserValidationError";
 import type IUserRepository from "../../user/domain/IUserRepository";
-import UserNotFoundError from "../../user/domain/UserNotFoundError";
 import type User from "../../user/domain/user";
 import CatchResponseError from "../../shared/infrastructure/catchError";
 interface expectedToken {
