@@ -1,8 +1,8 @@
 import type { IService, IServiceResponse } from "../../shared/domain/IService";
 import type { ResponseWrapper } from "../../shared/domain/ResponseWrapper";
+import CatchResponseError from "../../shared/infrastructure/catchError";
 import type IUserRepository from "../domain/IUserRepository";
 import type User from "../domain/user";
-import UserNotFoundError from "../domain/UserNotFoundError";
 import type UserDTO from "../infrastructure/UserDTO";
 
 export default class UserUpdateService implements IService<User, [Partial<UserDTO>, string]> {
@@ -18,21 +18,7 @@ export default class UserUpdateService implements IService<User, [Partial<UserDT
       return { res: new this.responseWrapper(true, updatedUser), code: 200 };
     }
     catch (error) {
-      if (error instanceof UserNotFoundError)
-        return {
-          res: new this.responseWrapper(false, error.message),
-          code: 404
-        }
-      if (error instanceof Error)
-        return {
-          res: new this.responseWrapper(false, (error as Error).message),
-          code: 500
-        }
-      console.error("[Error desconocido]", error);
-      return {
-        res: new this.responseWrapper(false, error as string),
-        code: 500
-      }
+      return CatchResponseError(this.responseWrapper, error);
     };
   };
 };

@@ -1,12 +1,11 @@
-import User from "../../user/domain/user.ts";
 import type IUserRepository from "../../user/domain/IUserRepository";
 import type PasswordHasher from "../../user/infrastructure/PasswordHasher";
 import type UserDTO from "../../user/infrastructure/UserDTO.ts";
 import type { IService, IServiceResponse } from "../../shared/domain/IService.ts";
-import UnknownError from "../../shared/domain/UnknownError.ts";
 import type { ResponseWrapper } from "../../shared/domain/ResponseWrapper.ts";
 import UserExistsError from "../../user/domain/UserExistsError.ts";
 import type JwtAdapter from "../../shared/infrastructure/JwtAdapter.ts";
+import CatchResponseError from "../../shared/infrastructure/catchError.ts";
 
 export default class RegisterUser implements IService<string, UserDTO> {
   constructor(
@@ -37,21 +36,7 @@ export default class RegisterUser implements IService<string, UserDTO> {
         res: new this.responseWrapper(true, token)
       }
     } catch (error) {
-      if (error instanceof UserExistsError)
-        return {
-          code: 400,
-          res: new this.responseWrapper(false, error.message)
-        }
-      if (error instanceof UnknownError)
-        return {
-          code: 500,
-          res: new this.responseWrapper(false, error.message)
-        }
-      console.log(error);
-      return {
-        code: 500,
-        res: new this.responseWrapper(false, (error as Error).message)
-      };
+      return CatchResponseError(this.responseWrapper, error);
     }
   }
 }

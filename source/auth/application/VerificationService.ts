@@ -6,6 +6,7 @@ import UserValidationError from "../../user/validators/UserValidationError";
 import type IUserRepository from "../../user/domain/IUserRepository";
 import UserNotFoundError from "../../user/domain/UserNotFoundError";
 import type User from "../../user/domain/user";
+import CatchResponseError from "../../shared/infrastructure/catchError";
 interface expectedToken {
   id: string,
   date: number,
@@ -35,26 +36,7 @@ export default class VerificationService implements IService<User, string> {
         code: 200
       };
     } catch (error) {
-      if (error instanceof UserValidationError)
-        return {
-          res: new this.responseWrapper(false, error.message),
-          code: 400
-        }
-      if (error instanceof JwtTokenInvalid)
-        return {
-          res: new this.responseWrapper(false, "El token es invalido"),
-          code: 400
-        }
-      if (error instanceof UserNotFoundError)
-        return {
-          res: new this.responseWrapper(false, error.message),
-          code: 404
-        }
-      console.error(error);
-      return {
-        res: new this.responseWrapper(false, "Error desconocido!"),
-        code: 500
-      }
+      return CatchResponseError(this.responseWrapper, error);
     };
   }
 };

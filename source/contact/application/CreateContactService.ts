@@ -1,5 +1,6 @@
 import type { IService, IServiceResponse } from "../../shared/domain/IService";
 import type { ResponseWrapper } from "../../shared/domain/ResponseWrapper";
+import CatchResponseError from "../../shared/infrastructure/catchError";
 import Contact from "../domain/contact";
 import type IContactRepository from "../domain/IContactRepository";
 import InvalidContactError from "../domain/InvalidContactError";
@@ -22,19 +23,8 @@ export default class CreateContactService implements IService<Contact, ContactDT
         code: 200
       }
     }
-    catch (err) {
-      if (err instanceof InvalidContactError)
-        return {
-          code: 500,
-          res: new this.responseWrapper(false, err.message)
-        }
-
-      console.error(err);
-
-      return {
-        code: 500,
-        res: new this.responseWrapper(false, "Error desconocido!")
-      }
+    catch (error) {
+      return CatchResponseError(this.responseWrapper, error);
     }
   }
 };

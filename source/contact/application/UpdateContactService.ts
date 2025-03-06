@@ -1,5 +1,6 @@
 import type { IService, IServiceResponse } from "../../shared/domain/IService";
 import { ResponseWrapper } from "../../shared/domain/ResponseWrapper";
+import CatchResponseError from "../../shared/infrastructure/catchError";
 import type Contact from "../domain/contact";
 import ContactNotFoundError from "../domain/ContactNotFoundError";
 import type IContactRepository from "../domain/IContactRepository";
@@ -28,11 +29,8 @@ export default class UpdateContactService implements IService<Contact, [Partial<
         res: new ResponseWrapper(true, UpdatedContact),
         code: 200
       }
-    } catch (err) {
-      return {
-        res: new this.responseWrapper(false, (err as string)),
-        code: this.determinate(err)
-      }
+    } catch (error) {
+      return CatchResponseError(this.responseWrapper, error);
     }
   };
 };

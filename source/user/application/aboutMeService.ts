@@ -2,7 +2,7 @@ import type IUserRepository from "../domain/IUserRepository";
 import type User from "../domain/user";
 import type { IService, IServiceResponse } from "../../shared/domain/IService";
 import type { ResponseWrapper } from "../../shared/domain/ResponseWrapper";
-import UserNotFoundError from "../domain/UserNotFoundError";
+import CatchResponseError from "../../shared/infrastructure/catchError";
 
 export default class AboutMeService implements IService<User, string> {
   constructor(
@@ -19,16 +19,7 @@ export default class AboutMeService implements IService<User, string> {
         code: 200
       };
     } catch (error) {
-      if (error instanceof UserNotFoundError)
-        return {
-          code: 404,
-          res: new this.responseWrapper(false, error.message)
-        };
-
-      return {
-        code: 500,
-        res: new this.responseWrapper(false, (error as Error).message)
-      }
+      return CatchResponseError(this.responseWrapper, error);
     };
   }
 };
