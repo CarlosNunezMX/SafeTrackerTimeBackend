@@ -47,7 +47,7 @@ export default class SendEmailService implements IService<string, string> {
         token 
       })
       
-      this.emailSender.sendEmail<IValidateEmailProps>(emailSubject, builder);
+      await this.emailSender.sendEmail<IValidateEmailProps>(emailSubject, builder);
       // Edit in database
       await this.userRepo.updateUser({
         hasEmailSent: true

@@ -15,6 +15,7 @@ import SendEmailService from "../application/sendEmail.ts";
 import EmailDetails from "../domain/EmailDetails.ts";
 import VerificationController from "../controllers/VerificationController.tsx";
 import VerificationService from "../application/VerificationService.ts";
+import ValidateEmailBuilder from "./ValidateEmailBuilder.tsx";
 
 
 
@@ -41,7 +42,9 @@ const sendEmailService = new SendEmailService(
   Constants.UserRepository,
   ResponseWrapper,
   Constants.emailClient,
-  EmailDetails
+  EmailDetails,
+  Constants.Env.HOST,
+  ValidateEmailBuilder
 )
 const emailController = new EmailSendController(
   sendEmailService,
