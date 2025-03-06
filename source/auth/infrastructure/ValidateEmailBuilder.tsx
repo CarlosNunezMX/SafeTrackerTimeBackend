@@ -1,14 +1,18 @@
 import MailBuilder from "../domain/MailBuilder";
 
-interface IValidateEmailProps {
+export interface IValidateEmailProps {
   name: string;
   url: string;
+  token: string;
 };
 
 export default class ValidateEmailBuilder extends MailBuilder<IValidateEmailProps> {
   constructor(props: IValidateEmailProps) {
     super(props);
   }
+  private getURL(){
+    return `${this.info.url}/api/v1/auth/verify?token=${this.info.token}`;
+  };
 
   public buildMail() {
     return (
@@ -16,7 +20,7 @@ export default class ValidateEmailBuilder extends MailBuilder<IValidateEmailProp
         <h1>Safe Track</h1>
         <p>Gracias por su registro en nuestra app!</p>
         <p>Le enviamos este correo para verificar la cuenta de <b>{this.info.name}</b></p>
-        <a href={this.info.url}>
+        <a href={this.getURL()}>
           <button>
             Verifica tu email
           </button>

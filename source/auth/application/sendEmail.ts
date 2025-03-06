@@ -7,6 +7,8 @@ import UserNotFoundError from "../../user/domain/UserNotFoundError";
 import UserValidationError from "../../user/validators/UserValidationError";
 import type IEmailClient from "../domain/EmailClient";
 import type EmailDetails from "../domain/EmailDetails";
+import type { IValidateEmailProps } from "../infrastructure/ValidateEmailBuilder";
+import type ValidateEmailBuilder from "../infrastructure/ValidateEmailBuilder";
 
 const validationTime = 5 * 1000 * 60 * 60 * 24; // Five days
 
@@ -17,9 +19,12 @@ export default class SendEmailService implements IService<string, string> {
     private userRepo: IUserRepository,
     private responseWrapper: typeof ResponseWrapper,
     private emailSender: IEmailClient,
-    private deteailsBuilder: typeof EmailDetails
+    private deteailsBuilder: typeof EmailDetails,
+    private host: string,
+    private emailBuilder: typeof ValidateEmailBuilder 
   ) { };
 
+  
   async service(args: string): Promise<IServiceResponse<string> | IServiceResponse<string>> {
     try {
       const hasUser = await this.userRepo.exists({
@@ -34,9 +39,15 @@ export default class SendEmailService implements IService<string, string> {
         throw new UserValidationError("El email ya se ha enviado!");
       // Send email
       const token = await this.jwtService.encode(user, { invalid_at: Date.now() + validationTime })
-      const emailDetails = new this.deteailsBuilder(user.email, token, "Verifica tu email.", user.userName.firstName);
-      await this.emailSender.sendEmail(emailDetails);
-
+      
+      const emailSubject = new this.deteailsBuilder(user.email, "Verifica tu email", user.userName.firstName);
+      const builder = new this.emailBuilder({
+        name: user.userName.firstName,
+        url: this.host,
+        token 
+      })
+      
+      this.emailSender.sendEmail<IValidateEmailProps>(emailSubject, builder);
       // Edit in database
       await this.userRepo.updateUser({
         hasEmailSent: true

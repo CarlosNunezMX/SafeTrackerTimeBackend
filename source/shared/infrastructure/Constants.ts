@@ -5,8 +5,7 @@ import client from "./PrismaClient";
 import ContactsPrismaRepository from "../../contact/infrastructure/PrismaRepository.ts";
 import PrismaLocationRepository from "../../location/infrastructure/PrismaLocationRepository.ts";
 import { Env } from "../../server/infrastructure/envCheck.ts";
-import EmailClient from "../../auth/infrastructure/EmailClient.ts";
-import MailBuilder from "../../auth/infrastructure/MailBuilder.ts";
+import EmailClient from "../../auth/infrastructure/EmailClient.tsx";
 
 export default class Constants {
   private static jwtToken = Env.variables.TOKEN_SECRET;
@@ -17,11 +16,9 @@ export default class Constants {
   public static ContactsRepository = new ContactsPrismaRepository(client);
   public static LocationRepository = new PrismaLocationRepository(client);
   public static emailClient = new EmailClient(
-    MailBuilder,
-    this.Env.RESEND_API_KEY,
-    `noreply@${this.Env.RESEND_DOMAIN}`,
-    this.Env.HOST
-  )
+    Env.variables.RESEND_API_KEY,
+    Env.variables.RESEND_DOMAIN
+  );
 }
 
 
