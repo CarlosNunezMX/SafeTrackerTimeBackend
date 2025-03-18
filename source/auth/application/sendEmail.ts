@@ -1,6 +1,7 @@
 import type { IService, IServiceResponse } from "../../shared/domain/IService";
 import type { ResponseWrapper } from "../../shared/domain/ResponseWrapper";
 import CatchResponseError from "../../shared/infrastructure/catchError";
+import { TokenUsage } from "../../shared/infrastructure/JwtAdapter";
 import type JwtAdapter from "../../shared/infrastructure/JwtAdapter";
 import type IUserRepository from "../../user/domain/IUserRepository";
 import UserNotFoundError from "../../user/domain/UserNotFoundError";
@@ -10,7 +11,7 @@ import type EmailDetails from "../domain/EmailDetails";
 import type { IValidateEmailProps } from "../infrastructure/ValidateEmailBuilder";
 import type ValidateEmailBuilder from "../infrastructure/ValidateEmailBuilder";
 
-const validationTime = 5 * 1000 * 60 * 60 * 24; // Five days
+const validationTime = Math.floor(Date.now() / 1000) + (60 * 60 * 24 * 5); // Five days
 
 
 export default class SendEmailService implements IService<string, string> {
@@ -38,7 +39,7 @@ export default class SendEmailService implements IService<string, string> {
       if (user.hasEmailSent)
         throw new UserValidationError("El email ya se ha enviado!");
       // Send email
-      const token = await this.jwtService.encode(user, { invalid_at: Date.now() + validationTime })
+      const token = await this.jwtService.encode(user, TokenUsage.VERIFICATION, {exp: validationTime})
 
       const emailSubject = new this.deteailsBuilder(user.email, "Verifica tu email", user.userName.firstName);
       const builder = new this.emailBuilder({

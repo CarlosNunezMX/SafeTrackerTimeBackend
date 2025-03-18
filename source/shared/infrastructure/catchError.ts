@@ -10,9 +10,9 @@ import LocationNotExists from "../../location/domain/LocationError";
 import UserExistsError from "../../user/domain/UserExistsError";
 import UserInvalidPasswordError from "../../user/domain/UserInvalidPasswordError";
 import { PrismaClientUnknownRequestError } from "@prisma/client/runtime/client";
-import { JwtTokenInvalid } from "hono/utils/jwt/types";
+import { JwtTokenExpired, JwtTokenInvalid } from "hono/utils/jwt/types";
 
-export default function CatchResponseError<T>(wrapper: typeof  ResponseWrapper, error: unknown): IServiceResponse<string>{
+export default function CatchResponseError(wrapper: typeof  ResponseWrapper, error: unknown): IServiceResponse<string>{
     if(error instanceof UnknownError || error instanceof InvalidContactError)
         return { res: new wrapper(false, error.message), code: 500 }
     if(error instanceof UserNotFoundError || error instanceof LocationNotExists || error instanceof ContactNotFoundError)
@@ -28,7 +28,7 @@ export default function CatchResponseError<T>(wrapper: typeof  ResponseWrapper, 
         console.log(error);
         return {res: new wrapper(false, "Error en base de datos"), code: 500}; 
     }
-    if(error instanceof JwtTokenInvalid)
+    if(error instanceof JwtTokenInvalid || error instanceof JwtTokenExpired)
         return {res: new wrapper(false, "El token es invalido"), code: 401};
     console.log(error);
     return { res: new wrapper(false, "Error desconocido!"), code: 500 }

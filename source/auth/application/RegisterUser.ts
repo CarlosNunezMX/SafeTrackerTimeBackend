@@ -6,6 +6,7 @@ import type { ResponseWrapper } from "../../shared/domain/ResponseWrapper.ts";
 import UserExistsError from "../../user/domain/UserExistsError.ts";
 import type JwtAdapter from "../../shared/infrastructure/JwtAdapter.ts";
 import CatchResponseError from "../../shared/infrastructure/catchError.ts";
+import { TokenUsage } from "../../shared/infrastructure/JwtAdapter.ts";
 
 export default class RegisterUser implements IService<string, UserDTO> {
   constructor(
@@ -27,10 +28,10 @@ export default class RegisterUser implements IService<string, UserDTO> {
       if (hasUser)
         throw new UserExistsError();
 
-      args = this.passwordHashService.hash(args)
+      args = (this.passwordHashService.hash(args) as UserDTO)
 
       const newUser = await this.repository.createUser(args);
-      const token = await this.jwtService.encode(newUser);
+      const token = await this.jwtService.encode(newUser, TokenUsage.AUTH);
       return {
         code: 200,
         res: new this.responseWrapper(true, token)

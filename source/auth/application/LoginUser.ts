@@ -2,6 +2,7 @@ import type { IService, IServiceResponse } from "../../shared/domain/IService";
 import type { ResponseWrapper } from "../../shared/domain/ResponseWrapper";
 import CatchResponseError from "../../shared/infrastructure/catchError";
 import type JwtAdapter from "../../shared/infrastructure/JwtAdapter";
+import { TokenUsage } from "../../shared/infrastructure/JwtAdapter";
 import type IUserRepository from "../../user/domain/IUserRepository";
 import UserInvalidPasswordError from "../../user/domain/UserInvalidPasswordError";
 import type PasswordHasher from "../../user/infrastructure/PasswordHasher";
@@ -32,7 +33,7 @@ export default class LoginUserService implements IService<string, [string, strin
           throw new UserValidationError("El usuario no se ha verificado! La cuenta se ha desactivado.");
       if (!isPasswordValid)
         throw new UserInvalidPasswordError();
-      const token = await this.jwtSerivce.encode(user);
+      const token = await this.jwtSerivce.encode(user, TokenUsage.AUTH);
       return {
         code: 200,
         res: new this.responseWrapper(true, token)

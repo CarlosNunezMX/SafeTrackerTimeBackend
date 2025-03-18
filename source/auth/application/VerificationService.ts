@@ -6,11 +6,12 @@ import UserValidationError from "../../user/validators/UserValidationError";
 import type IUserRepository from "../../user/domain/IUserRepository";
 import type User from "../../user/domain/user";
 import CatchResponseError from "../../shared/infrastructure/catchError";
+import { TokenUsage } from "../../shared/infrastructure/JwtAdapter";
+import InvalidRequestBodyError from "../../shared/domain/InvalidRequestBodyError";
 
 interface expectedToken {
   id: string,
   date: number,
-  invalid_at: number
 };
 
 export default class VerificationService implements IService<User, string> {
@@ -26,8 +27,8 @@ export default class VerificationService implements IService<User, string> {
   public async service(args: string): Promise<IServiceResponse<User> | IServiceResponse<string>> {
     try {
       const user = await this.jwtService.decode<expectedToken>(args);
-      if (!this.isAllowed(user.invalid_at))
-        throw new UserValidationError("El link es invalido");
+      if(user.usage !== TokenUsage.VERIFICATION)
+        throw new InvalidRequestBodyError("El link es invalido") 
       const validUser = await this.repo.updateUser({
         verifed: true
       }, user.id);

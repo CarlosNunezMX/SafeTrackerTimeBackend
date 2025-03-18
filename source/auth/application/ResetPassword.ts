@@ -1,6 +1,7 @@
 import type { IService, IServiceResponse } from "../../shared/domain/IService";
 import type { ResponseWrapper } from "../../shared/domain/ResponseWrapper";
 import CatchResponseError from "../../shared/infrastructure/catchError";
+import { TokenUsage } from "../../shared/infrastructure/JwtAdapter";
 import type JwtAdapter from "../../shared/infrastructure/JwtAdapter";
 import type IUserRepository from "../../user/domain/IUserRepository";
 import UserNotFoundError from "../../user/domain/UserNotFoundError";
@@ -30,7 +31,7 @@ export default class ResetPasswordService implements IService<string, string> {
         throw new UserNotFoundError();
 
       const user = await this.userRepo.getByEmail(args);
-      const token = await this.jwtService.encode(user, { invalid_at: 1000 * 60 * 5 })
+      const token = await this.jwtService.encode(user, TokenUsage.RECOVER_PASSWORD, { exp: Math.floor(Date.now() / 1000) + 60 * 5 })
 
       const senderBuild = new this.details(user.email, "Recupera tu contraseña", user.userName.firstName);
       const recoverBuilder = new this.recoverBuilder({
