@@ -42,8 +42,8 @@ This route request a verification mail to the server, it will send **if and only
 
 ### Request password recover
 > **STATUS**: Work in progress, not in development server, refer to `email_send_reload` branch for testing.
-* **Gateway:** `/api/v1/auth/recover/link`
-* **Method:** `GET`
+* **Gateway:** `/api/v1/auth/recover`
+* **Method:** `PUT`
 * **Query:** `?email={email}`
 * **Response:** `string`
 --- 
