@@ -9,6 +9,7 @@ export default class ContactPrismaRepository implements IContactRepository {
   constructor(
     private client: PrismaClient
   ) { };
+
   async createContact(contact: ContactDTO): Promise<Contact> {
     const newContact = await this.client.contact.create({
       data: {
@@ -21,6 +22,13 @@ export default class ContactPrismaRepository implements IContactRepository {
     return new Contact(newContact.id, newContact.name, newContact.phone, newContact.contactOwnerID);
   }
 
+  async getContactsNumber(userID: string): Promise<number> {
+    const contacts = await this.client.contact.findMany({
+      where: { contactOwnerID: userID }
+    });
+
+    return contacts.length;
+  }
   async deleteContact(id: string): Promise<void> {
     const exists = await this.client.contact.findFirst({
       where: {

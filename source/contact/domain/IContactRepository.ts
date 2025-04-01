@@ -9,5 +9,6 @@ export default interface IContactRepository {
   getByID(id: string): Promise<Contact>;
   findContactByIDS(phone: string, userID: string): Promise<Contact>;
   updateContact(contact: Partial<ContactDTO>, contactID: string): Promise<Contact>;
+  getContactsNumber(userID: string): Promise<number>;
   exists(contact: Partial<Pick<Contact, "phone" | "userID" | "id">>): Promise<boolean>
 };

@@ -17,6 +17,10 @@ export default class CreateContactService implements IService<Contact, ContactDT
       const exists = await this.contactRepo.exists(contact);
       if (exists)
         throw new InvalidContactError("El contacto ya existe!");
+
+      const howContacts = await this.contactRepo.getContactsNumber(contact.userID);
+      if (howContacts >= 3)
+        throw new InvalidContactError("No se puede registrar más de tres contactos!");
       const newContact = await this.contactRepo.createContact(contact);
       return {
         res: new this.responseWrapper(true, newContact),
