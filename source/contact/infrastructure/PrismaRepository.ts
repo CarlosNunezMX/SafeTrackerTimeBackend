@@ -120,7 +120,7 @@ export default class ContactPrismaRepository implements IContactRepository {
   }
 
   async exists(contact: Partial<Pick<Contact, "userID" | "phone" | "id">>): Promise<boolean> {
-    if (!contact.userID && !contact.phone)
+    if (!contact.userID && !contact.phone && !contact.id)
       throw new InvalidContactError("Se debe proveer un userID o un telefono.");
     const hasContact = await this.client.contact.findFirst({
       where: {
