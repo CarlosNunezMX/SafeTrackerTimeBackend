@@ -1,11 +1,11 @@
 import { Hono } from "hono";
 import type JwtAdapter from "../../shared/infrastructure/JwtAdapter";
 import { validator } from "hono/validator";
-import type LocationDTO from "../infrastructure/LocationDTO";
 import type UpdateLocationValidator from "../validators/UpdateLocationValidator";
 import type { ResponseWrapper } from "../../shared/domain/ResponseWrapper";
 import InvalidRequestBodyError from "../../shared/domain/InvalidRequestBodyError";
 import type UpdateLocationService from "../application/UpdateLocationService";
+import type { UpdateLocationInput } from "./update_input.dto";
 
 export default class UpdateLocationController {
   constructor(
@@ -18,7 +18,8 @@ export default class UpdateLocationController {
   };
   public Router = new Hono();
   private router() {
-    this.Router.patch("/", this.jwtService.middleware, validator("json", (value: LocationDTO, c) => {
+    // @FIX: Add new input
+    this.Router.patch("/", this.jwtService.middleware, validator("json", (value: UpdateLocationInput, c) => {
       try {
         this.validator.validate(value);
         return value;

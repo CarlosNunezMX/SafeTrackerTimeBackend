@@ -2,10 +2,12 @@ import type { PrismaClient } from "@prisma/client";
 import type ILocationRepository from "../domain/ILocationRepository";
 import Location from "../domain/Location";
 import LocationNotExists from "../domain/LocationError"
-import type LocationDTO from "./LocationDTO";
+import type LocationEncryption from "./encrypt";
+
 export default class PrismaLocationRepository implements ILocationRepository {
   constructor(
-    private client: PrismaClient
+    private client: PrismaClient,
+    private encryptionService: LocationEncryption
   ) { };
 
 
@@ -19,45 +21,45 @@ export default class PrismaLocationRepository implements ILocationRepository {
     if (!location)
       throw new LocationNotExists();
 
-    return new Location(
-      location.id,
-      location.x.toNumber(),
-      location.y.toNumber(),
-      location.date,
-      location.userID
-    )
+    return this.encryptionService.toClient(location);
   }
 
-  public async updateLocation(location: LocationDTO, userID: string): Promise<Location> {
+  public async updateLocation(location: Location, userID: string): Promise<Location> {
     try {
+      const toDB = this.encryptionService.toDatabase(location);
+      console.log(userID)
       const newLocation = await this.client.location.update({
         where: {
           userID
         },
         data: {
-          date: new Date(Date.now()),
-          x: location.x,
-          y: location.y
+          date: toDB.date,
+          tag: toDB.tag,
+          encriptedLocation: toDB.encriptedLocation,
+          iv: toDB.iv
         }
       })
-      return new Location(newLocation.id, newLocation.x.toNumber(), newLocation.y.toNumber(), newLocation.date, newLocation.userID);
+
+      return this.encryptionService.toClient(newLocation);
 
     } catch (err) {
       return await this.createLocation(location, userID);
     };
   }
 
-  private async createLocation(location: LocationDTO, userID: string): Promise<Location> {
+  private async createLocation(location: Location, userID: string): Promise<Location> {
+    const toDatabase = this.encryptionService.toDatabase(location);
     const newLocation = await this.client.location.create({
       data: {
-        x: location.x,
-        y: location.y,
-        userID
+        encriptedLocation: toDatabase.encriptedLocation,
+        iv: toDatabase.iv,
+        userID,
+        tag: toDatabase.tag,
+        date: location.date
       }
     })
 
-
-    return new Location(newLocation.id, newLocation.x.toNumber(), newLocation.y.toNumber(), newLocation.date, newLocation.userID);
+    return this.encryptionService.toClient(newLocation);
   };
 }
 

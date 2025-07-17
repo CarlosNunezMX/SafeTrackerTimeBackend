@@ -1,11 +1,12 @@
 import { Hono } from "hono";
-import type JwtAdapter from "../../shared/infrastructure/JwtAdapter";
+import type JwtAdapter from "@shared/infrastructure/JwtAdapter";
 import type GetLocationService from "../application/GetLocationService";
 
 export default class GetLocationController {
   constructor(
     private jwtService: JwtAdapter,
-    private locationService: GetLocationService
+    private locationService: GetLocationService,
+
   ) {
     this.router();
   };
@@ -14,8 +15,10 @@ export default class GetLocationController {
 
   private router() {
     this.Router.get("/", this.jwtService.middleware, async c => {
-      const { id } = c.get("jwtPayload");
-      const location = await this.locationService.service(id);
+      const { id: userID } = c.req.query()
+      const { id: reqID } = c.get("jwtPayload");
+
+      const location = await this.locationService.service({ reqID, userID });
       // @ts-ignore
       return c.json(location.res, location.code)
     })

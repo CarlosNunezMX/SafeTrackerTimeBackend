@@ -11,7 +11,8 @@ const locationRouter = new Hono();
 
 const getLocationService = new GetLocationService(
   Constants.LocationRepository,
-  ResponseWrapper
+  ResponseWrapper,
+  Constants.UserRepository
 );
 
 const getLocationController = new GetLocationController(

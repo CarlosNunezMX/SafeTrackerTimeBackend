@@ -23,6 +23,16 @@
     // Some stricter flags (disabled by default)
     "noUnusedLocals": false,
     "noUnusedParameters": false,
-    "noPropertyAccessFromIndexSignature": false
+    "noPropertyAccessFromIndexSignature": false,
+    "paths": {
+      "@auth/*": ["./source/auth/*"],
+      "@contact/*": ["./source/contact/*"],
+      "@location/*": ["./source/location/*"],
+      "@server/*": ["./source/server/infrastructure/*"],
+      "@shared/*": ["./source/shared/*"],
+      "@user/*": ["./source/user/*"],
+      "@views/*": ["./source/views/*"],
+
+    }
   }
 }

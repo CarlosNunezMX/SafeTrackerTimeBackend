@@ -9,25 +9,27 @@ datasource db {
 
 model User {
   id           String    @id @default(uuid())
-  createdAt    DateTime  @default(now())
   lastName     String
   firstName    String
   password     String
   phone        String    @unique
   email        String    @unique
-  hasEmailSent Boolean   @default(false)
   verified     Boolean   @default(false)
+  createdAt    DateTime  @default(now())
+  hasEmailSent Boolean   @default(false)
+  rank         Range     @default(User)
   contacts     Contact[]
   Location     Location?
 }
 
 model Location {
-  id     String   @id @default(uuid())
-  x      Decimal
-  y      Decimal
-  userID String   @unique
-  date   DateTime @default(now())
-  User   User     @relation(fields: [userID], references: [id])
+  id                String   @id @default(uuid())
+  encriptedLocation String   @default("")
+  tag               String   @default("")
+  iv                String   @default("")
+  userID            String   @unique
+  date              DateTime @default(now())
+  User              User     @relation(fields: [userID], references: [id])
 }
 
 model Contact {
@@ -36,4 +38,9 @@ model Contact {
   phone          String
   contactOwnerID String
   contactOwner   User   @relation(fields: [contactOwnerID], references: [id])
+}
+
+enum Range {
+  User
+  Admin
 }
