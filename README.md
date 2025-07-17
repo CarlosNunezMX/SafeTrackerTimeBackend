@@ -10,6 +10,7 @@
   * `DATABASE_URL`: The connection string 
   * `TOKEN_SECRET`: The key for jwt encryption
   * `RESEND_API_KEY`: Resend email service JWT key
+  * `LOCATION_KEY`: Key for encryption
   * `RESEND_DOMAIN`: Domain for sending emails, this has to be linked to API KEY.
   * `PORT`: _[Optional]_ The server port
 2. Install deps:
