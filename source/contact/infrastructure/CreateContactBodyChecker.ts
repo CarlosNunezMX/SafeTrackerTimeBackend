@@ -1,7 +1,8 @@
-import UnknownError from "../../shared/domain/UnknownError";
 import InvalidContactError from "../domain/InvalidContactError";
 import type ContactDTO from "./ContactDTO";
 import PhoneValidator from "./PhoneValidator";
+
+import UnknownError from "@shared/domain/UnknownError";
 
 export default class CreateContactBodyChecker {
 

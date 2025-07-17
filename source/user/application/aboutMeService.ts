@@ -1,8 +1,9 @@
 import type IUserRepository from "../domain/IUserRepository";
 import type User from "../domain/user";
-import type { IService, IServiceResponse } from "../../shared/domain/IService";
-import type { ResponseWrapper } from "../../shared/domain/ResponseWrapper";
-import CatchResponseError from "../../shared/infrastructure/catchError";
+
+import type { IService, IServiceResponse } from "@shared/domain/IService";
+import type { ResponseWrapper } from "@shared/domain/ResponseWrapper";
+import CatchResponseError from "@shared/infrastructure/catchError";
 
 export default class AboutMeService implements IService<User, string> {
   constructor(

@@ -1,5 +1,6 @@
-import InvalidRequestBodyError from "../../shared/domain/InvalidRequestBodyError";
-import UserInvalidPasswordError from "../../user/domain/UserInvalidPasswordError";
+import InvalidRequestBodyError from "@shared/domain/InvalidRequestBodyError";
+import UserInvalidPasswordError from "@user/domain/UserInvalidPasswordError";
+
 import EmailValidator from "./EmailValidator";
 
 export default class LoginValidator {

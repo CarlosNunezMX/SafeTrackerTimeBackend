@@ -1,8 +1,9 @@
-import type { IService, IServiceResponse } from "../../shared/domain/IService";
 import type IContactRepository from "../domain/IContactRepository";
-import { ResponseWrapper } from "../../shared/domain/ResponseWrapper";
 import type Contact from "../domain/contact";
-import CatchResponseError from "../../shared/infrastructure/catchError";
+
+import { ResponseWrapper } from "@shared/domain/ResponseWrapper";
+import type { IService, IServiceResponse } from "@shared/domain/IService";
+import CatchResponseError from "@shared/infrastructure/catchError";
 
 export default class GetContactsService implements IService<Contact[], string> {
   constructor(

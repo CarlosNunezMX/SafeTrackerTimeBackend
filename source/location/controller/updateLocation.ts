@@ -1,9 +1,9 @@
 import { Hono } from "hono";
-import type JwtAdapter from "../../shared/infrastructure/JwtAdapter";
+import type JwtAdapter from "@shared/infrastructure/JwtAdapter";
 import { validator } from "hono/validator";
 import type UpdateLocationValidator from "../validators/UpdateLocationValidator";
-import type { ResponseWrapper } from "../../shared/domain/ResponseWrapper";
-import InvalidRequestBodyError from "../../shared/domain/InvalidRequestBodyError";
+import type { ResponseWrapper } from "@shared/domain/ResponseWrapper";
+import InvalidRequestBodyError from "@shared/domain/InvalidRequestBodyError";
 import type UpdateLocationService from "../application/UpdateLocationService";
 import type { UpdateLocationInput } from "./update_input.dto";
 

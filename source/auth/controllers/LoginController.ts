@@ -1,12 +1,13 @@
-import { Hono } from "hono/tiny";
-import type JwtAdapter from "../../shared/infrastructure/JwtAdapter";
-import type LoginUserService from "../application/LoginUser";
+import { Hono } from "hono";
 import { validator } from "hono/validator";
+
+import UserInvalidPasswordError from "@user/domain/UserInvalidPasswordError";
+
+import InvalidRequestBodyError from "@shared/domain/InvalidRequestBodyError";
+import type { ResponseWrapper } from "@shared/domain/ResponseWrapper";
+
+import type LoginUserService from "../application/LoginUser";
 import type LoginValidator from "../validators/LoginValidator";
-import InvalidRequestBodyError from "../../shared/domain/InvalidRequestBodyError";
-import UserInvalidPasswordError from "../../user/domain/UserInvalidPasswordError";
-import type { ResponseWrapper } from "../../shared/domain/ResponseWrapper";
-import type { ContentfulStatusCode } from "hono/utils/http-status";
 
 export default class LoginController {
   constructor(
@@ -32,7 +33,7 @@ export default class LoginController {
     }), async c => {
       const { email, password } = c.req.valid("json")!;
       const token = await this.loginService.service([email, password]);
-      return c.json(token.res, (token.code as ContentfulStatusCode));
+      return c.json(token.res, token.code);
     });
   }
 };

@@ -1,30 +1,34 @@
 import { Hono } from "hono";
-import ValidateUserRegister from "../validators/ValidateUserRegister.ts";
-import { ResponseWrapper } from "../../shared/domain/ResponseWrapper.ts";
-import RegisterController from "../controllers/RegisterController.ts";
 
 
 // Services
+import ChangePasswordService from "../application/ChangePassword.ts";
+import VerificationService from "../application/VerificationService.ts";
+import RecoverPasswordFormService from "../application/ResetPasswordFormService.ts";
 import RegisterUser from "../application/RegisterUser.ts";
 import LoginUserService from "../application/LoginUser.ts";
-import Constants from "../../shared/infrastructure/Constants.ts";
-import LoginController from "../controllers/LoginController.ts";
-import LoginValidator from "../validators/LoginValidator.ts";
-import EmailSendController from "../controllers/EmailSend.ts";
 import SendEmailService from "../application/sendEmail.ts";
-import EmailDetails from "../domain/EmailDetails.ts";
-import VerificationController from "../controllers/VerificationController.tsx";
-import VerificationService from "../application/VerificationService.ts";
-import ValidateEmailBuilder from "./ValidateEmailBuilder.tsx";
-import RecoverPasswordController from "../controllers/RecoverPasswordController.tsx";
-import RecoverPasswordFormService from "../application/ResetPasswordFormService.ts";
 import ResetPasswordService from "../application/ResetPassword.ts";
-import { RecoverPasswordEmailBuilder } from "./RecoverPasswordEmailBuilder.tsx";
+
+import RegisterController from "../controllers/RegisterController.ts";
 import RecoverSendEmailController from "../controllers/RecoverSendEmail.ts";
-import ValidateRecoverAndVerification from "../validators/ValidateRecoverAndVerification.ts";
-import EmailValidator from "../validators/EmailValidator.ts";
-import ChangePasswordService from "../application/ChangePassword.ts";
+import LoginController from "../controllers/LoginController.ts";
+import RecoverPasswordController from "../controllers/RecoverPasswordController.tsx";
+import EmailSendController from "../controllers/EmailSend.ts";
+import VerificationController from "../controllers/VerificationController.tsx";
 import SuccessfulChangedPasswordController from "../controllers/SuccessfullChangedPassword.tsx";
+
+import ValidateUserRegister from "../validators/ValidateUserRegister.ts";
+import ValidateRecoverAndVerification from "../validators/ValidateRecoverAndVerification.ts";
+import LoginValidator from "../validators/LoginValidator.ts";
+import EmailValidator from "../validators/EmailValidator.ts";
+
+import EmailDetails from "../domain/EmailDetails.ts";
+import ValidateEmailBuilder from "./ValidateEmailBuilder.tsx";
+import { RecoverPasswordEmailBuilder } from "./RecoverPasswordEmailBuilder.tsx";
+
+import Constants from "@shared/infrastructure/Constants.ts";
+import { ResponseWrapper } from "@shared/domain/ResponseWrapper.ts";
 
 // instances
 const LoginService = new LoginUserService(Constants.UserRepository, Constants.passwordHasher, Constants.jwtService, ResponseWrapper);

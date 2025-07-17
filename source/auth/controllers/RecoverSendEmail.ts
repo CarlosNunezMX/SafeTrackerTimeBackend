@@ -1,10 +1,12 @@
 import { Hono } from "hono";
 import { validator } from "hono/validator";
+
 import type EmailValidator from "../validators/EmailValidator";
-import type ValidateRecoverAndVerification from "../validators/ValidateRecoverAndVerification";
-import CatchResponseError from "../../shared/infrastructure/catchError";
-import type { ResponseWrapper } from "../../shared/domain/ResponseWrapper";
 import type ResetPasswordService from "../application/ResetPassword";
+import type ValidateRecoverAndVerification from "../validators/ValidateRecoverAndVerification";
+
+import CatchResponseError from "@shared/infrastructure/catchError";
+import type { ResponseWrapper } from "@shared/domain/ResponseWrapper";
 
 export default class RecoverSendEmailController {
     constructor(

@@ -1,13 +1,12 @@
-import { JwtTokenInvalid } from "hono/utils/jwt/types";
-import type { IService, IServiceResponse } from "../../shared/domain/IService";
-import type { ResponseWrapper } from "../../shared/domain/ResponseWrapper";
-import type JwtAdapter from "../../shared/infrastructure/JwtAdapter";
-import UserValidationError from "../../user/validators/UserValidationError";
-import type IUserRepository from "../../user/domain/IUserRepository";
-import type User from "../../user/domain/user";
-import CatchResponseError from "../../shared/infrastructure/catchError";
-import { TokenUsage } from "../../shared/infrastructure/JwtAdapter";
-import InvalidRequestBodyError from "../../shared/domain/InvalidRequestBodyError";
+import type IUserRepository from "@user/domain/IUserRepository";
+import type User from "@user/domain/user";
+
+import type { IService, IServiceResponse } from "@shared/domain/IService";
+import type { ResponseWrapper } from "@shared/domain/ResponseWrapper";
+import type JwtAdapter from "@shared/infrastructure/JwtAdapter";
+import CatchResponseError from "@shared/infrastructure/catchError";
+import { TokenUsage } from "@shared/infrastructure/JwtAdapter";
+import InvalidRequestBodyError from "@shared/domain/InvalidRequestBodyError";
 
 interface expectedToken {
   id: string,

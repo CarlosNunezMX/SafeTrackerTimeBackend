@@ -1,11 +1,14 @@
 import type { PrismaClient } from "@prisma/client";
-import type IUserRepository from "../domain/IUserRepository";
+
 import User from "../domain/user";
+import type IUserRepository from "../domain/IUserRepository";
 import UserName from "../domain/userName";
 import UserNotFoundError from "../domain/UserNotFoundError";
-import Contact from "../../contact/domain/contact";
+
+import UnknownError from "@shared/domain/UnknownError";
+import Contact from "@contact/domain/contact";
+
 import UserDTO from "./UserDTO";
-import UnknownError from "../../shared/domain/UnknownError";
 
 export default class PostgreRepository implements IUserRepository {
   constructor(

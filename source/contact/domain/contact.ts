@@ -1,4 +1,4 @@
-import type User from "../../user/domain/user";
+import type User from "@user/domain/user";
 
 export default class Contact {
   constructor(

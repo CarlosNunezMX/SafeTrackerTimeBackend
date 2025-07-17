@@ -1,8 +1,10 @@
 import { Hono } from "hono";
 import { validator } from "hono/validator";
-import InvalidRequestBodyError from "../../shared/domain/InvalidRequestBodyError";
-import RecoverPasswordView from "../../views/recoverpassword";
+
+import RecoverPasswordView from "@views/recoverpassword";
 import type RecoverPasswordFormService from "../application/ResetPasswordFormService";
+
+import InvalidRequestBodyError from "@shared/domain/InvalidRequestBodyError";
 
 export default class RecoverPasswordController {
     constructor(

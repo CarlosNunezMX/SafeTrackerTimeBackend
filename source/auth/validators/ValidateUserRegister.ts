@@ -1,9 +1,10 @@
-import PhoneValidator from "../../contact/infrastructure/PhoneValidator";
-import UnknownError from "../../shared/domain/UnknownError";
-import UserValidationError from "../../user/validators/UserValidationError";
-import EmailValidator from "../validators/EmailValidator";
+import PhoneValidator from "@contact/infrastructure/PhoneValidator";
+import UnknownError from "@shared/domain/UnknownError";
 
-import type UserDTO from "../../user/infrastructure/UserDTO";
+import type UserDTO from "@user/infrastructure/UserDTO";
+import UserValidationError from "@user/validators/UserValidationError";
+
+import EmailValidator from "../validators/EmailValidator";
 
 export default class ValidateUserRegister {
   public static validate(user: Partial<UserDTO>) {

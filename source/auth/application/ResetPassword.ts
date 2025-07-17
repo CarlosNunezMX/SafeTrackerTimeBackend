@@ -1,10 +1,12 @@
-import type { IService, IServiceResponse } from "../../shared/domain/IService";
-import type { ResponseWrapper } from "../../shared/domain/ResponseWrapper";
-import CatchResponseError from "../../shared/infrastructure/catchError";
-import { TokenUsage } from "../../shared/infrastructure/JwtAdapter";
-import type JwtAdapter from "../../shared/infrastructure/JwtAdapter";
-import type IUserRepository from "../../user/domain/IUserRepository";
-import UserNotFoundError from "../../user/domain/UserNotFoundError";
+import type { IService, IServiceResponse } from "@shared/domain/IService";
+import type { ResponseWrapper } from "@shared/domain/ResponseWrapper";
+import CatchResponseError from "@shared/infrastructure/catchError";
+import { TokenUsage } from "@shared/infrastructure/JwtAdapter";
+import type JwtAdapter from "@shared/infrastructure/JwtAdapter";
+
+import type IUserRepository from "@user/domain/IUserRepository";
+import UserNotFoundError from "@user/domain/UserNotFoundError";
+
 import type EmailDetails from "../domain/EmailDetails";
 import type EmailClient from "../infrastructure/EmailClient";
 import type { RecoverPasswordEmailBuilder } from "../infrastructure/RecoverPasswordEmailBuilder";

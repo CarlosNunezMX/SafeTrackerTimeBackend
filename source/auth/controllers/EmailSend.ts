@@ -1,6 +1,6 @@
 import { Hono } from "hono";
 import type SendEmailService from "../application/sendEmail";
-import type JwtAdapter from "../../shared/infrastructure/JwtAdapter";
+import type JwtAdapter from "@shared/infrastructure/JwtAdapter";
 
 export default class EmailSendController {
   constructor(

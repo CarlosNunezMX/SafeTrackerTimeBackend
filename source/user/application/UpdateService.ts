@@ -1,9 +1,10 @@
-import type { IService, IServiceResponse } from "../../shared/domain/IService";
-import type { ResponseWrapper } from "../../shared/domain/ResponseWrapper";
-import CatchResponseError from "../../shared/infrastructure/catchError";
 import type IUserRepository from "../domain/IUserRepository";
 import type User from "../domain/user";
 import type UserDTO from "../infrastructure/UserDTO";
+
+import type { IService, IServiceResponse } from "@shared/domain/IService";
+import type { ResponseWrapper } from "@shared/domain/ResponseWrapper";
+import CatchResponseError from "@shared/infrastructure/catchError";
 
 export default class UserUpdateService implements IService<User, [Partial<UserDTO>, string]> {
   constructor(

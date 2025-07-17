@@ -2,7 +2,7 @@ import { Resend } from "resend";
 import type IEmailClient from "../domain/EmailClient";
 import type EmailDetails from "../domain/EmailDetails";
 import type MailBuilder from "../domain/MailBuilder";
-import UnknownError from "../../shared/domain/UnknownError";
+import UnknownError from "@shared/domain/UnknownError";
 export default class EmailClient implements IEmailClient {
   private transporter: Resend;
   constructor(

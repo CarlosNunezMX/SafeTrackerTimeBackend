@@ -1,9 +1,9 @@
 import { Hono } from "hono";
 import type ChangePasswordService from "../application/ChangePassword";
 import { validator } from "hono/validator";
-import InvalidRequestBodyError from "../../shared/domain/InvalidRequestBodyError";
-import UserInvalidPasswordError from "../../user/domain/UserInvalidPasswordError";
-import ChangedPasswordView from "../../views/ChangedPassword";
+import InvalidRequestBodyError from "@shared/domain/InvalidRequestBodyError";
+import UserInvalidPasswordError from "@user/domain/UserInvalidPasswordError";
+import ChangedPasswordView from "@views/ChangedPassword";
 
 export default class SuccessfulChangedPasswordController {
     constructor(

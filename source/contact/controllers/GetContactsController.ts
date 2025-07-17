@@ -1,7 +1,7 @@
 import { Hono } from "hono/tiny";
-import type JwtAdapter from "../../shared/infrastructure/JwtAdapter";
-import type { ResponseWrapper } from "../../shared/domain/ResponseWrapper";
 import type GetContactsService from "../application/GetContactsService";
+
+import type JwtAdapter from "@shared/infrastructure/JwtAdapter";
 
 export default class GetContactController {
   public Router = new Hono();

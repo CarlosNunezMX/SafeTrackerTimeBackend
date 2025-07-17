@@ -1,4 +1,4 @@
-import InvalidRequestBodyError from "../../shared/domain/InvalidRequestBodyError";
+import InvalidRequestBodyError from "@shared/domain/InvalidRequestBodyError";
 import type EmailValidator from "./EmailValidator";
 
 export default class ValidateRecoverAndVerification {

@@ -1,12 +1,13 @@
-import type IUserRepository from "../../user/domain/IUserRepository";
-import type PasswordHasher from "../../user/infrastructure/PasswordHasher";
-import type UserDTO from "../../user/infrastructure/UserDTO.ts";
-import type { IService, IServiceResponse } from "../../shared/domain/IService.ts";
-import type { ResponseWrapper } from "../../shared/domain/ResponseWrapper.ts";
-import UserExistsError from "../../user/domain/UserExistsError.ts";
-import type JwtAdapter from "../../shared/infrastructure/JwtAdapter.ts";
-import CatchResponseError from "../../shared/infrastructure/catchError.ts";
-import { TokenUsage } from "../../shared/infrastructure/JwtAdapter.ts";
+import type IUserRepository from "@user/domain/IUserRepository";
+import type PasswordHasher from "@user/infrastructure/PasswordHasher";
+import UserExistsError from "@user/domain/UserExistsError.ts";
+import type UserDTO from "@user/infrastructure/UserDTO.ts";
+
+import type { IService, IServiceResponse } from "@shared/domain/IService.ts";
+import type { ResponseWrapper } from "@shared/domain/ResponseWrapper.ts";
+import type JwtAdapter from "@shared/infrastructure/JwtAdapter.ts";
+import CatchResponseError from "@shared/infrastructure/catchError.ts";
+import { TokenUsage } from "@shared/infrastructure/JwtAdapter.ts";
 
 export default class RegisterUser implements IService<string, UserDTO> {
   constructor(

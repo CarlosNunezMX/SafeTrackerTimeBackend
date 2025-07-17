@@ -1,10 +1,14 @@
 import { Hono } from "hono";
-import VerifiedView from "../../views/verified";
-import User from "../../user/domain/user";
-import type VerificationService from "../application/VerificationService";
 import { validator } from "hono/validator";
-import InvalidRequestBodyError from "../../shared/domain/InvalidRequestBodyError";
-import VerfiedView from "../../views/verified";
+
+import type VerificationService from "../application/VerificationService";
+
+import InvalidRequestBodyError from "@shared/domain/InvalidRequestBodyError";
+
+import User from "@user/domain/user";
+
+import VerfiedView from "@views/verified";
+import VerifiedView from "@views/verified";
 
 export default class VerificationController {
   constructor(

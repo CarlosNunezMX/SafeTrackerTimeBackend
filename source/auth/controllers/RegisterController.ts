@@ -1,12 +1,12 @@
 import { Hono } from "hono"
 import { validator } from "hono/validator";
-import { ResponseWrapper } from "../../shared/domain/ResponseWrapper";
+import { ResponseWrapper } from "@shared/domain/ResponseWrapper";
 
-import UserDTO from "../../user/infrastructure/UserDTO";
-import UserValidationError from "../../user/validators/UserValidationError";
+import UserDTO from "@user/infrastructure/UserDTO";
+import UserValidationError from "@user/validators/UserValidationError";
 
 import type ValidateUserRegister from "../validators/ValidateUserRegister";
-import UnknownError from "../../shared/domain/UnknownError";
+import UnknownError from "@shared/domain/UnknownError";
 import type RegisterUser from "../application/RegisterUser";
 export default class RegisterController {
   constructor(

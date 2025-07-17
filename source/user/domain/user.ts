@@ -1,4 +1,4 @@
-import type Contact from "../../contact/domain/contact";
+import type Contact from "@contact/domain/contact";
 import type UserName from "./userName";
 
 export type UserRank = "Admin" | "User";

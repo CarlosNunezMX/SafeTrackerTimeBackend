@@ -1,11 +1,12 @@
-import InvalidRequestBodyError from "../../shared/domain/InvalidRequestBodyError";
-import type { IService, IServiceResponse } from "../../shared/domain/IService";
-import type { ResponseWrapper } from "../../shared/domain/ResponseWrapper";
-import CatchResponseError from "../../shared/infrastructure/catchError";
-import { TokenUsage } from "../../shared/infrastructure/JwtAdapter";
-import type JwtAdapter from "../../shared/infrastructure/JwtAdapter";
-import type IUserRepository from "../../user/domain/IUserRepository";
-import UserNotFoundError from "../../user/domain/UserNotFoundError";
+import InvalidRequestBodyError from "@shared/domain/InvalidRequestBodyError";
+import type { IService, IServiceResponse } from "@shared/domain/IService";
+import type { ResponseWrapper } from "@shared/domain/ResponseWrapper";
+import CatchResponseError from "@shared/infrastructure/catchError";
+import { TokenUsage } from "@shared/infrastructure/JwtAdapter";
+import type JwtAdapter from "@shared/infrastructure/JwtAdapter";
+
+import type IUserRepository from "@user/domain/IUserRepository";
+import UserNotFoundError from "@user/domain/UserNotFoundError";
 
 export default class RecoverPasswordFormService implements IService<string, string> {
     constructor(

@@ -1,13 +1,16 @@
-import type { IService, IServiceResponse } from "../../shared/domain/IService";
-import type { ResponseWrapper } from "../../shared/domain/ResponseWrapper";
-import CatchResponseError from "../../shared/infrastructure/catchError";
-import { TokenUsage } from "../../shared/infrastructure/JwtAdapter";
-import type JwtAdapter from "../../shared/infrastructure/JwtAdapter";
-import type IUserRepository from "../../user/domain/IUserRepository";
-import UserNotFoundError from "../../user/domain/UserNotFoundError";
-import UserValidationError from "../../user/validators/UserValidationError";
+import type { IService, IServiceResponse } from "@shared/domain/IService";
+import type { ResponseWrapper } from "@shared/domain/ResponseWrapper";
+import CatchResponseError from "@shared/infrastructure/catchError";
+import { TokenUsage } from "@shared/infrastructure/JwtAdapter";
+import type JwtAdapter from "@shared/infrastructure/JwtAdapter";
+
+import type IUserRepository from "@user/domain/IUserRepository";
+import UserNotFoundError from "@user/domain/UserNotFoundError";
+import UserValidationError from "@user/validators/UserValidationError";
+
 import type IEmailClient from "../domain/EmailClient";
 import type EmailDetails from "../domain/EmailDetails";
+
 import type { IValidateEmailProps } from "../infrastructure/ValidateEmailBuilder";
 import type ValidateEmailBuilder from "../infrastructure/ValidateEmailBuilder";
 

@@ -1,5 +1,5 @@
 import { verify } from "hono/utils/jwt/jwt";
-import type User from "../../user/domain/user";
+import type User from "@user/domain/user";
 import { jwt, sign } from "hono/jwt"
 import type { JWTPayload } from "hono/utils/jwt/types";
 export enum TokenUsage {

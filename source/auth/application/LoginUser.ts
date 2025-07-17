@@ -1,12 +1,13 @@
-import type { IService, IServiceResponse } from "../../shared/domain/IService";
-import type { ResponseWrapper } from "../../shared/domain/ResponseWrapper";
-import CatchResponseError from "../../shared/infrastructure/catchError";
-import type JwtAdapter from "../../shared/infrastructure/JwtAdapter";
-import { TokenUsage } from "../../shared/infrastructure/JwtAdapter";
-import type IUserRepository from "../../user/domain/IUserRepository";
-import UserInvalidPasswordError from "../../user/domain/UserInvalidPasswordError";
-import type PasswordHasher from "../../user/infrastructure/PasswordHasher";
-import UserValidationError from "../../user/validators/UserValidationError";
+import type { IService, IServiceResponse } from "@shared/domain/IService";
+import type { ResponseWrapper } from "@shared/domain/ResponseWrapper";
+import CatchResponseError from "@shared/infrastructure/catchError";
+import type JwtAdapter from "@shared/infrastructure/JwtAdapter";
+import { TokenUsage } from "@shared/infrastructure/JwtAdapter";
+
+import type IUserRepository from "@user/domain/IUserRepository";
+import UserInvalidPasswordError from "@user/domain/UserInvalidPasswordError";
+import type PasswordHasher from "@user/infrastructure/PasswordHasher";
+import UserValidationError from "@user/validators/UserValidationError";
 
 export default class LoginUserService implements IService<string, [string, string]> {
   constructor(

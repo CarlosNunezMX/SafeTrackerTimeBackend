@@ -1,16 +1,21 @@
-import type { IServiceResponse } from "../domain/IService";
-import InvalidContactError from "../../contact/domain/InvalidContactError";
-import type { ResponseWrapper } from "../domain/ResponseWrapper";
-import UnknownError from "../domain/UnknownError";
-import UserNotFoundError from "../../user/domain/UserNotFoundError";
-import ContactNotFoundError from "../../contact/domain/ContactNotFoundError";
-import UserValidationError from "../../user/validators/UserValidationError";
-import LocationNotExists from "../../location/domain/LocationError";
-import { LacationValidationError } from "../../location/domain/LocationError"
-import UserExistsError from "../../user/domain/UserExistsError";
-import UserInvalidPasswordError from "../../user/domain/UserInvalidPasswordError";
 import { PrismaClientUnknownRequestError } from "@prisma/client/runtime/client";
 import { JwtTokenExpired, JwtTokenInvalid } from "hono/utils/jwt/types";
+
+import UserExistsError from "@user/domain/UserExistsError";
+import UserInvalidPasswordError from "@user/domain/UserInvalidPasswordError";
+import UserValidationError from "@user/validators/UserValidationError";
+import UserNotFoundError from "@user/domain/UserNotFoundError";
+
+import InvalidContactError from "@contact/domain/InvalidContactError";
+import ContactNotFoundError from "@contact/domain/ContactNotFoundError";
+
+
+import { LacationValidationError } from "@location/domain/LocationError"
+import LocationNotExists from "@location/domain/LocationError";
+
+import type { IServiceResponse } from "../domain/IService";
+import type { ResponseWrapper } from "../domain/ResponseWrapper";
+import UnknownError from "../domain/UnknownError";
 import NotAuthorizedError from "../domain/NotAuthroized";
 
 export default function CatchResponseError(wrapper: typeof ResponseWrapper, error: unknown): IServiceResponse<string> {

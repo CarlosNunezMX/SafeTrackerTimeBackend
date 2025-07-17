@@ -1,11 +1,13 @@
-import { Hono } from "hono/tiny";
-import JwtAdapter from "../../shared/infrastructure/JwtAdapter";
-import type { ResponseWrapper } from "../../shared/domain/ResponseWrapper";
+import { Hono } from "hono";
 import { validator } from "hono/validator";
+
 import type UpdateValidator from "../infrastructure/UpdateValidator";
 import ContactDTO from "../infrastructure/ContactDTO";
 import InvalidContactError from "../domain/InvalidContactError";
 import type UpdateContactService from "../application/UpdateContactService.ts";
+
+import type { ResponseWrapper } from "@shared/domain/ResponseWrapper";
+import JwtAdapter from "@shared/infrastructure/JwtAdapter";
 
 export default class UpdateContactController {
   public Router = new Hono();

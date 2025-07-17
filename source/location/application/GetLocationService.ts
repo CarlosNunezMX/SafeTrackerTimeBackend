@@ -1,8 +1,8 @@
-import type { IService, IServiceResponse } from "../../shared/domain/IService";
-import NotAuthorizedError from "../../shared/domain/NotAuthroized";
-import type { ResponseWrapper } from "../../shared/domain/ResponseWrapper";
-import CatchResponseError from "../../shared/infrastructure/catchError";
-import type IUserRepository from "../../user/domain/IUserRepository";
+import type { IService, IServiceResponse } from "@shared/domain/IService";
+import NotAuthorizedError from "@shared/domain/NotAuthroized";
+import type { ResponseWrapper } from "@shared/domain/ResponseWrapper";
+import CatchResponseError from "@shared/infrastructure/catchError";
+import type IUserRepository from "@user/domain/IUserRepository";
 import type ILocationRepository from "../domain/ILocationRepository";
 import type Location from "../domain/Location";
 

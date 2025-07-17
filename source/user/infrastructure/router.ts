@@ -1,11 +1,15 @@
 import { Hono } from "hono";
+
 import UserController from "../controllers/UserController";
-import Constants from "../../shared/infrastructure/Constants";
-import AboutMeService from "../application/aboutMeService";
-import { ResponseWrapper } from "../../shared/domain/ResponseWrapper";
 import ModifyUserController from "../controllers/ModifyUserController";
-import UpdateUserValidator from "../validators/UpdateUser";
+
 import UserUpdateService from "../application/UpdateService";
+import AboutMeService from "../application/aboutMeService";
+
+import UpdateUserValidator from "../validators/UpdateUser";
+
+import Constants from "@shared/infrastructure/Constants";
+import { ResponseWrapper } from "@shared/domain/ResponseWrapper";
 
 const UserRouter = new Hono();
 

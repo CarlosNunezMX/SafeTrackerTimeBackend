@@ -1,9 +1,12 @@
-import EmailValidator from "../../auth/validators/EmailValidator";
-import PhoneValidator from "../../contact/infrastructure/PhoneValidator";
-import UserInvalidPasswordError from "../domain/UserInvalidPasswordError";
+
+import EmailValidator from "@auth/validators/EmailValidator";
+import PhoneValidator from "@contact/infrastructure/PhoneValidator";
+
 import UserValidationError from "./UserValidationError";
 import type UserDTO from "../infrastructure/UserDTO";
 import UsernameValidator from "./Username";
+
+import UserInvalidPasswordError from "../domain/UserInvalidPasswordError";
 import UserName from "../domain/userName";
 
 export default class UpdateUserValidator {

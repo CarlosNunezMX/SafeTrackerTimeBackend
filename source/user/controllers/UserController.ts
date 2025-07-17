@@ -1,6 +1,7 @@
-import { Hono } from "hono/tiny";
-import JwtAdapter from "../../shared/infrastructure/JwtAdapter";
+import { Hono } from "hono";
 import type AboutMeService from "../application/aboutMeService";
+
+import JwtAdapter from "@shared/infrastructure/JwtAdapter";
 
 export default class UserController {
   public Router = new Hono();

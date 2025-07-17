@@ -1,10 +1,12 @@
-import type { IService, IServiceResponse } from "../../shared/domain/IService";
-import { ResponseWrapper } from "../../shared/domain/ResponseWrapper";
-import CatchResponseError from "../../shared/infrastructure/catchError";
 import type Contact from "../domain/contact";
 import ContactNotFoundError from "../domain/ContactNotFoundError";
 import type IContactRepository from "../domain/IContactRepository";
+
 import type ContactDTO from "../infrastructure/ContactDTO";
+
+import type { IService, IServiceResponse } from "@shared/domain/IService";
+import { ResponseWrapper } from "@shared/domain/ResponseWrapper";
+import CatchResponseError from "@shared/infrastructure/catchError";
 
 export default class UpdateContactService implements IService<Contact, [Partial<ContactDTO>, string]> {
   constructor(

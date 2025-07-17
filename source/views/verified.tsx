@@ -1,5 +1,5 @@
 import { Fragment } from "hono/jsx";
-import type User from "../user/domain/user";
+import type User from "@user/domain/user";
 import { css, keyframes, Style } from "hono/css";
 import Layout from "./layout";
 import { card, errorCard } from "./styles/common";
